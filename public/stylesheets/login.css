@@ -6,4 +6,18 @@ body {
   background-position: center center;
   background-attachment: fixed;
   background-color: beige;
+  color: red;
+}
+.createAccount-box{
+  display: none;
+}
+.login-box, .createAccount-box {
+  text-align: center;
+  color: black;
+  background-color: yellow;
+  width: 25%;
+  height: 25%;
+  box-shadow: 4px 2px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
