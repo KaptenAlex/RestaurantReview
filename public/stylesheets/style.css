@@ -1,5 +1,11 @@
-/*Express-generated CSS*/
+/*Custom-CSS*/
 body {
+  background: url("../images/graffiti.JPG");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-color: blue;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -7,4 +13,3 @@ body {
 a {
   color: #00B7FF;
 }
-/*Custom-CSS*/
