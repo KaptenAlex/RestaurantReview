@@ -4,13 +4,28 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bcrypt = require('bcryptjs');
+/*
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
+*/
+var mysql = require('mysql');
 
 var indexRouter = require('./routes/login');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  //database: "local",
+  port: 10003
+});
+
+connection.connect(function(err){
+  if (err) throw err;
+  console.log("Connected");
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
