@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
   res.render('login', { title: 'RestaurantReview' });
 });
 
-router.post("/login", function(req,res){
+router.post("/home", function(req,res){
   connection.connect(function(err){
     if (err) throw err;
     let username = req.body.name;
