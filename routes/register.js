@@ -19,6 +19,7 @@ router.post("/", function(req, res) {
       if (error) throw error;
       console.log("Created user!");
       res.render('login', { title: 'RestaurantReview' });
+      connection.end();
     });
   });
 });
