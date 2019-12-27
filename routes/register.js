@@ -20,7 +20,6 @@ router.post("/", function(req, res) {
       console.log("Created user!");
       res.render('login', { title: 'RestaurantReview' });
     });
-    //console.log("Connected");
   });
 });
 
