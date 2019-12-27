@@ -8,12 +8,15 @@ var bcrypt = require('bcryptjs');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 */
+/*
 var mysql = require('mysql');
-
+*/
 var indexRouter = require('./routes/login');
+var registerRouter = require('./routes/register');
 var usersRouter = require('./routes/users');
 
 var app = express();
+/*
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -21,12 +24,11 @@ var connection = mysql.createConnection({
   //database: "local",
   port: 10003
 });
-
 connection.connect(function(err){
   if (err) throw err;
   console.log("Connected");
 });
-
+*/
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
