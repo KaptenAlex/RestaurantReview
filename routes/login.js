@@ -9,10 +9,29 @@ var connection = mysql.createConnection({
   port: 10003
 });
 
-/* GET home page. */
+/*
+GET home page.
 router.get('/', function(req, res) {
   res.render('login', {
     title: 'RestaurantReview'
+  });
+});
+*/
+router.get('/', function(req, res) {
+  connection.connect(function(err) {
+    if (err) throw err;
+    let restaurants = [];
+    connection.query("SELECT * FROM `restaurants`", function(error, results) {
+      if (error) throw error;
+      for (var i = 0; i < results.length; i++) {
+        console.log(results[i]);
+      }
+      res.render('homepage', {
+        title: 'RestaurantReview',
+        restaurants: results,
+        user: ""
+      });
+    });
   });
 });
 

@@ -9,8 +9,12 @@
 </head>
 
 <body>
-  <h1 class="display-1">Welcome to <%= title %>, <%= user[0].userName %></h1>
-  <p>Your role is <%= user[0].roleID %></p>
+  <% if(user) { %>
+    <h1 class="display-1">Welcome to <%= title %>, <%= user[0].userName %></h1>
+    <p>Your role is <%= user[0].roleID %></p>
+  <% } else { %>
+    <h1 class="display-1">Welcome to <%= title %></h1>
+  <% } %>
   <div class="row row-cols-1 row-cols-md-1">
     <% for (var i = 0; i < restaurants.length; i++) { %>
       <div class="col mb-4">
