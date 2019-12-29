@@ -16,19 +16,6 @@ var registerRouter = require('./routes/register');
 var usersRouter = require('./routes/users');
 
 var app = express();
-/*
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  //database: "local",
-  port: 10003
-});
-connection.connect(function(err){
-  if (err) throw err;
-  console.log("Connected");
-});
-*/
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

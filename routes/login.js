@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var connection = mysql.createConnection({
+
+var pool = mysql.createPool({
+  connectionLimit: 10,
   host: "localhost",
   user: "root",
   password: "root",
@@ -10,10 +12,10 @@ var connection = mysql.createConnection({
 });
 
 router.get('/', function(req, res) {
-  connection.connect(function(err) {
+  pool.getConnection(function(err) {
     if (err) throw err;
     let restaurants = [];
-    connection.query("SELECT * FROM `restaurants`", function(error, results) {
+    pool.query("SELECT * FROM `restaurants`", function(error, results) {
       if (error) throw error;
       for (var i = 0; i < results.length; i++) {
         console.log(results[i]);
@@ -25,16 +27,16 @@ router.get('/', function(req, res) {
       });
     });
   });
-  //connection.end();
+  //pool.end();
 });
 
 router.post("/login", function(req, res) {
-  connection.connect(function(err) {
+  pool.getConnection(function(err) {
     if (err) throw err;
     let userInfo = [];
     let username = req.body.name;
     let password = req.body.pass;
-    connection.query("SELECT * FROM `users` WHERE userName = ? AND userPassword = ?", [username, password], function(error, results) {
+    pool.query("SELECT * FROM `users` WHERE userName = ? AND userPassword = ?", [username, password], function(error, results) {
       if (error) throw error;
       for (var i = 0; i < results.length; i++) {
         console.log(results[i]);
