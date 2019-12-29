@@ -12,7 +12,7 @@ var pool = mysql.createPool({
 });
 
 router.get('/', function(req, res) {
-  pool.getConnection(function(err) {
+  pool.getConnection(function(err, connection) {
     if (err) throw err;
     let restaurants = [];
     pool.query("SELECT * FROM `restaurants`", function(error, results) {
@@ -26,6 +26,7 @@ router.get('/', function(req, res) {
         user: ""
       });
     });
+    connection.release();
   });
   //pool.end();
 });

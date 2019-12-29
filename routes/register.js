@@ -21,6 +21,7 @@ router.post("/createAccount", function(req, res) {
       console.log("Created user!");
       res.render('homepage', { title: 'RestaurantReview' });
     });
+    connection.release();
   });
 });
 
