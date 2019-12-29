@@ -9,31 +9,81 @@
 </head>
 
 <body>
-  <% if(user) { %>
-    <h1 class="display-1">Welcome to <%= title %>, <%= user[0].userName %></h1>
-    <p>Your role is <%= user[0].roleID %></p>
-  <% } else { %>
-    <h1 class="display-1">Welcome to <%= title %></h1>
-  <% } %>
-  <div class="row row-cols-1 row-cols-md-1">
-    <% for (var i = 0; i < restaurants.length; i++) { %>
-      <div class="col mb-4">
-        <div class="card">
-          <h5 class="card-header"><%= restaurants[i].name %></h5>
-          <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand"><%= title %></span>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginModal">
+      Sign in!
+    </button>
+  </nav>
+  <div class="modal fade" id="LoginModal" tabindex="-1" role="login" aria-labelledby="LoginModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title login-box">Login</h5>
+          <h5 class="modal-title createAccount-box">Create an account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="login-box">
+          <div class="modal-body">
+            <form action="/login" method="post">
+              <label for="username">Enter your username</label>
+              <input type="text" name="name" class="form-control">
+              <label for="password">Enter your password</label>
+              <input type="password" name="pass" class="form-control">
+              <br>
+              <input type="submit" value="Login" class="btn btn-success btn-lg btn-block">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button id="createAccount" class="btn btn-secondary btn-lg btn-block">Don't have an account? Create one here!</a>
+          </div>
+        </div>
+        <div class="createAccount-box">
+          <div class="modal-body">
+            <form action="/createAccount" method="post">
+              <label for="username">Enter a username</label>
+              <input type="text" name="username" class="form-control">
+              <label for="password">Enter a password</label>
+              <input type="password" name="password" class="form-control">
+              <br>
+              <input type="submit" value="Create account" class="btn btn-success btn-lg btn-block">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="loginAccount" class="btn btn-secondary btn-lg btn-block">Already have an account? Login here!</button>
           </div>
         </div>
       </div>
-      <% } %>
+    </div>
+  </div>
+  <% if(user) { %>
+  <h1 class="display-1">Welcome to <%= title %>, <%= user[0].userName %></h1>
+  <p>Your role is <%= user[0].roleID %></p>
+  <% } else { %>
+  <h1 class="display-1">Welcome to <%= title %></h1>
+  <% } %>
+  <div class="row row-cols-1 row-cols-md-1">
+    <% for (var i = 0; i < restaurants.length; i++) { %>
+    <div class="col mb-4">
+      <div class="card">
+        <h5 class="card-header"><%= restaurants[i].name %></h5>
+        <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
+          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        </div>
+      </div>
+    </div>
+    <% } %>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="../javascripts/homepage.js"></script>
+  <script src="../javascripts/login.js"></script>
 </body>
 
 </html>

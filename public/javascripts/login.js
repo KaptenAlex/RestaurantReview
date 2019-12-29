@@ -1,4 +1,5 @@
 $(function(){
+  $(".createAccount-box").hide();
   $("#createAccount").on("click", function(){
     $(".login-box").hide();
     $(".createAccount-box").show();

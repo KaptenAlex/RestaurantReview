@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
   database: "restaurants"
 });
 
-router.post("/", function(req, res) {
+router.post("/createAccount", function(req, res) {
   connection.connect(function(err) {
     if (err) throw err;
     let username = req.body.username;
@@ -18,8 +18,8 @@ router.post("/", function(req, res) {
     connection.query("INSERT INTO `users` SET userName = ?, userPassword = ?, roleID = ?", [username, password, 0], function(error, results, fields) {
       if (error) throw error;
       console.log("Created user!");
-      res.render('login', { title: 'RestaurantReview' });
-      connection.end();
+      res.render('homepage', { title: 'RestaurantReview' });
+      //connection.end();
     });
   });
 });
