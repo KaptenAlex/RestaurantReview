@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var bcrypt = require('bcryptjs');
 
 var pool = mysql.createPool({
   connectionLimit: 10,
@@ -28,13 +29,11 @@ router.get('/', function(req, res) {
     });
     connection.release();
   });
-  //pool.end();
 });
 
 router.post("/", function(req, res) {
   pool.getConnection(function(err) {
     if (err) throw err;
-    let userInfo = [];
     let username = req.body.name;
     let password = req.body.pass;
     pool.query("SELECT * FROM `users` WHERE userName = ? AND userPassword = ?", [username, password], function(error, results) {
