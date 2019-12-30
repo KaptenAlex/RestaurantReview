@@ -24,7 +24,7 @@ router.post("/createAccount", async (req, res) => {
         pool.query("SELECT * FROM `restaurants`", function(error2, results2) {
           if (error2) throw error2;
           pool.query("SELECT * FROM `users` WHERE userName = ? AND userPassword = ?", [username, hashPass], function(error3, results3) {
-            if (error) throw error;
+            if (error3) throw error3;
             console.log(results3);
             res.render('homepage', {
               user: results3,
