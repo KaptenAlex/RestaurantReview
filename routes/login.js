@@ -15,12 +15,8 @@ var pool = mysql.createPool({
 router.get('/', function(req, res) {
   pool.getConnection(function(err, connection) {
     if (err) throw err;
-    let restaurants = [];
     pool.query("SELECT * FROM `restaurants`", function(error, results) {
       if (error) throw error;
-      for (var i = 0; i < results.length; i++) {
-        console.log(results[i]);
-      }
       res.render('homepage', {
         title: 'RestaurantReview',
         restaurants: results,
