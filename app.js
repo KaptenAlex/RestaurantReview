@@ -8,7 +8,6 @@ var homepageRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var restaurantsRouter = require('./routes/restaurants');
 
-
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
