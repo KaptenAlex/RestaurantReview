@@ -36,7 +36,7 @@ router.post("/", function(req, res) {
         res.render("homepage", {
           user: results,
           restaurants: results2,
-          title: "wow"
+          title: "RestaurantReview"
         });
       });
     });
