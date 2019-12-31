@@ -32,27 +32,19 @@ router.get('/', function(req, res) {
 });
 
 router.post("/", function(req, res) {
-  pool.getConnection(function(err) {
+  pool.getConnection(function(err, connection) {
     if (err) throw err;
-    let username = req.body.name;
-    let password = req.body.pass;
-    pool.query("SELECT * FROM `users` WHERE userName = ? AND userPassword = ?", [username, password], function(error, results) {
+    pool.query("SELECT * FROM `users` WHERE userName = ? AND userPassword = ?", [req.body.uName, req.body.passW], function(error, results) {
       if (error) throw error;
-      for (var i = 0; i < results.length; i++) {
-        console.log(results[i]);
-      }
       pool.query("SELECT * FROM `restaurants`", function(error2, results2) {
-        if (error2) throw error2;
-        for (var i = 0; i < results2.length; i++) {
-          console.log(results2[i]);
-        }
-        res.render('homepage', {
-          title: 'RestaurantReview',
+        res.render("homepage", {
           user: results,
-          restaurants: results2
+          restaurants: results2,
+          title: "wow"
         });
       });
     });
+    connection.release();
   });
 });
 
