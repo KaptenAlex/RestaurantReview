@@ -28,13 +28,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/:id", (req, res) => {
-  let id = req.params.id;
-  console.log(req.body.restaurantName);
-  console.log(req.body.restaurantGenre);
-  //Req.bodies return undefined.
-  /*
   pool.getConnection((err, connection) => {
-    pool.query("UPDATE `restaurants` SET name = ?, genre = ?, image = ? WHERE ID = ?", [req.body.restaurantName, req.body.restaurantGenre, null, id], (error,results,fields) => {
+    pool.query("UPDATE `restaurants` SET name = ?, genre = ?, image = ? WHERE ID = ?", [req.body.restaurantName, req.body.restaurantGenre, null, req.params.id], (error,results,fields) => {
       if (error) throw error;
       pool.query("SELECT * FROM `restaurants`", (error2, results2) =>{
         if(error2) throw error2;
@@ -47,7 +42,7 @@ router.post("/:id", (req, res) => {
     });
     connection.release();
   });
-  */
+
 });
 
 module.exports = router;
