@@ -29,10 +29,10 @@ router.get("/:id", (req, res) => {
 
 router.post("/:id", (req, res) => {
   pool.getConnection((err, connection) => {
-    pool.query("UPDATE `restaurants` SET name = ?, genre = ?, image = ? WHERE ID = ?", [req.body.restaurantName, req.body.restaurantGenre, null, req.params.id], (error,results,fields) => {
+    pool.query("UPDATE `restaurants` SET name = ?, genre = ?, image = ? WHERE ID = ?", [req.body.restaurantName, req.body.restaurantGenre, null, req.params.id], (error, results, fields) => {
       if (error) throw error;
-      pool.query("SELECT * FROM `restaurants`", (error2, results2) =>{
-        if(error2) throw error2;
+      pool.query("SELECT * FROM `restaurants`", (error2, results2) => {
+        if (error2) throw error2;
         res.render("homepage", {
           title: "RestaurantReview",
           user: "",
@@ -42,7 +42,21 @@ router.post("/:id", (req, res) => {
     });
     connection.release();
   });
+});
 
+router.delete("/:id", (req, res) => {
+  pool.getConnection((err, connection) => {
+    pool.query("DELETE FROM `restaurants` WHERE ID = ?", [req.params.id], (error, results) => {
+      pool.query("SELECT * FROM `restaurants`", (error2, results2) => {
+        res.render("homepage", {
+          title: "RestaurantReview",
+          user: "",
+          restaurants: results2
+        });
+      });
+    });
+    connection.release();
+  });
 });
 
 module.exports = router;
