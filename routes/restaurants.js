@@ -47,7 +47,9 @@ router.post("/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   pool.getConnection((err, connection) => {
     pool.query("DELETE FROM `restaurants` WHERE ID = ?", [req.params.id], (error, results) => {
+      if (error) throw error;
       pool.query("SELECT * FROM `restaurants`", (error2, results2) => {
+        if (error2) throw error2;
         res.render("homepage", {
           title: "RestaurantReview",
           user: "",
@@ -56,6 +58,23 @@ router.delete("/delete/:id", (req, res) => {
       });
     });
     connection.release();
+  });
+});
+
+router.post("/", (req, res) => {
+  pool.getConnection((err, connection) => {
+    pool.query("INSERT INTO `restaurants` (name, genre, image) VALUES (?,?,?)", [req.body.nameForRestaurant, req.body.genreForRestaurant, null], (error, results) => {
+      if (error) throw error;
+      pool.query("SELECT * FROM `restaurants`", (error2, results2) => {
+        if (error2) throw error2;
+        res.render("homepage", {
+          title: "RestaurantReview",
+          user: "",
+          restaurants: results2
+        });
+      });
+      connection.release();
+    });
   });
 });
 
