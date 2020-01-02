@@ -14,6 +14,9 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginModal">
       Sign in!
     </button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateRestaurantModal">
+      Create restaurant
+    </button>
   </nav>
   <!-- Login/Create user modal -->
   <div class="modal fade" id="LoginModal" tabindex="-1" role="login" aria-labelledby="LoginModal" aria-hidden="true">
@@ -89,6 +92,36 @@
           <!-- Action gets set via jQuery -->
           <form id="deleteRestaurant" action="" method="post">
             <button id="" type="submit" class="btn btn-danger deleteRestaurant">Delete restaurant</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Create restaurant modal -->
+  <div class="modal fade" id="CreateRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="CreateRestaurantModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create restaurant</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="createForm" action="" method="post">
+            <!--enctype="multipart/form-data" Need to fix bodyparser or some input parser -->
+            <label for="nameForRestaurant">Enter name for new restaurant</label>
+            <input id="nameForRestaurant" class="form-control" type="text" name="nameForRestaurant" value="">
+            <label for="genreForRestaurant">Enter genre for new restaurant</label>
+            <input id="genreForRestaurant" class="form-control" type="text" name="genreForRestaurant" value="">
+            <!--
+            <br>
+            <input type="file" name="restaurantImage" value="">
+          -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add restaurant</button>
           </form>
         </div>
       </div>
