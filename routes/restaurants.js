@@ -44,7 +44,7 @@ router.post("/:id", (req, res) => {
   });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   pool.getConnection((err, connection) => {
     pool.query("DELETE FROM `restaurants` WHERE ID = ?", [req.params.id], (error, results) => {
       pool.query("SELECT * FROM `restaurants`", (error2, results2) => {
