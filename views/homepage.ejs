@@ -70,13 +70,15 @@
           </button>
         </div>
         <div class="modal-body">
-          <form id="editForm" action="" method="post" enctype="multipart/form-data">
+          <form id="editForm" action="" method="post"><!--enctype="multipart/form-data" Need to fix bodyparser or some input parser -->
             <label for="restaurantName">Enter a new name for restaurant</label>
             <input id="restaurantName" class="form-control" type="text" name="restaurantName" value="">
             <label for="restaurantGenre">Enter a new genre for restaurant</label>
             <input id="restaurantGenre" class="form-control" type="text" name="restaurantGenre" value="">
+            <!--
             <br>
             <input type="file" name="restaurantImage" value="">
+          -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
