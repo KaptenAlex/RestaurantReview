@@ -140,7 +140,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/dsakdasnlnads" method="post">
+          <form action="reviews/" method="post">
+            <input hidden type="text" name="hiddenRestaurantID" id="hiddenRestaurantID" value="">
+            <% if(user) { %>
+            <input hidden type="text" name="hiddenUserID" value="<%= user[0].ID %>">
+            <% } %>
             <label for="review">Leave a review</label>
             <textarea class="form-control" id="review" name="review" rows="4" cols="40"></textarea>
             <br>
@@ -183,9 +187,9 @@
         </div>
         <div class="card-footer bg-grey">
           <% if(user) {%>
-          <button class="btn btn-primary btn-block btn-lg float-right" type="button" data-toggle="modal" data-target="#reviewModal">Review restaurant</button>
+          <button id="<%= restaurants[i].ID %>" class="btn btn-primary btn-block btn-lg reviewRestaurant" type="button">Review restaurant</button>
           <% } else { %>
-          <button disabled class="btn btn-primary btn-block btn-lg float-right" type="button">Review restaurant</button>
+          <button disabled class="btn btn-primary btn-block btn-lg" type="button">Review restaurant</button>
           <% } %>
         </div>
       </div>

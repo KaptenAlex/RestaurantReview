@@ -21,7 +21,7 @@ $(function() {
       });
   });
 
-  $("#deleteRestaurant").on("click", function(e){
+  $("#deleteRestaurant").on("click", function(e) {
     e.preventDefault();
     $.ajax({
       type: "DELETE",
@@ -34,5 +34,11 @@ $(function() {
         console.log("Failed deleting restaurant!");
       }
     });
+  });
+
+  $(".reviewRestaurant").on("click", function(e) {
+    let restaurantID = e.target.id;
+    $("#hiddenRestaurantID").val(restaurantID);
+    $("#reviewModal").modal("show");
   });
 });
