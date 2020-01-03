@@ -15,9 +15,11 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginModal">
       Sign in!
     </button>
+    <% if(user) { %>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateRestaurantModal">
       Create restaurant
     </button>
+    <% } %>
   </nav>
   <!-- Login/Create user modal -->
   <div class="modal fade" id="LoginModal" tabindex="-1" role="login" aria-labelledby="LoginModal" aria-hidden="true">
@@ -145,10 +147,8 @@
             <% if(user) { %>
             <input hidden type="text" name="hiddenUserID" value="<%= user[0].ID %>">
             <% } %>
-            <div id="reviews">
-
-            </div>
-              <h5 class="modal-title">Leave a review</h5>
+            <div id="reviews"></div>
+            <h5 class="modal-title">Leave a review</h5>
             <label for="review">How was your experience?</label>
             <textarea class="form-control" id="review" name="review" rows="4" cols="40"></textarea>
             <p id="charactersLeft">200 characters left</p>
@@ -164,7 +164,11 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="submitReview">Save changes</button>
+          <% if(user) { %>
+            <button type="submit" class="btn btn-primary" id="submitReview">Save changes</button>
+          <% } else { %>
+            <button disabled type="button" class="btn btn-primary">You need to login to post a review!</button>
+          <% } %>
         </div>
         </form>
       </div>
@@ -185,9 +189,11 @@
         <div class="card-body">
           <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
           <p class="card-text">Stuff relating to restaurant.</p>
+          <% if(user) { %>
           <button id="<%= restaurants[i].ID %>" class="openEditModal btn btn-primary">
             Edit restaurant
           </button>
+          <% } %>
         </div>
         <div class="card-footer bg-grey">
           <% if(user) {%>
