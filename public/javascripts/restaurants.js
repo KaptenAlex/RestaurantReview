@@ -71,6 +71,9 @@ $(function() {
   });
   $("#reviewModal").on("hidden.bs.modal", function() {
     $("#reviews").empty();
+    $("#review").val("");
+    $("#rating").val("1");
+    $("#charactersLeft").text("200 characters left");
   });
   $("#LoginModal").on("hidden.bs.modal", function() {
     $("#loginUsername").val("");
