@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><%= title %></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/homepage.css">
@@ -127,6 +128,40 @@
       </div>
     </div>
   </div>
+
+  <!-- Review modal -->
+  <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Review</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/dsakdasnlnads" method="post">
+            <label for="review">Leave a review</label>
+            <textarea class="form-control" id="review" name="review" rows="4" cols="40"></textarea>
+            <br>
+            <label for="rating">Give a rating</label>
+            <br>
+            <select class="form-control" name="rating">
+              <option value="1">1 Star</option>
+              <option value="2">2 Star</option>
+              <option value="3">3 Star</option>
+              <option value="4">4 Star</option>
+              <option value="5">5 Star</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <% if(user) { %>
   <h1 class="display-1">Welcome to <%= title %>, <%= user[0].userName %></h1>
   <p>Your role is <%= user[0].roleID %></p>
@@ -148,7 +183,7 @@
         </div>
         <div class="card-footer bg-grey">
           <% if(user) {%>
-          <button class="btn btn-primary btn-block btn-lg float-right" type="button">Review restaurant</button>
+          <button class="btn btn-primary btn-block btn-lg float-right" type="button" data-toggle="modal" data-target="#reviewModal">Review restaurant</button>
           <% } else { %>
           <button disabled class="btn btn-primary btn-block btn-lg float-right" type="button">Review restaurant</button>
           <% } %>
