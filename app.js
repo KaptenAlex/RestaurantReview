@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var homepageRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var restaurantsRouter = require('./routes/restaurants');
+var reviewsRouter = require('./routes/reviews');
 
 var app = express();
 // view engine setup
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', homepageRouter);
 app.use('/register', registerRouter);
 app.use('/restaurants', restaurantsRouter);
+app.use('/reviews', reviewsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
