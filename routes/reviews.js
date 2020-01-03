@@ -10,3 +10,6 @@ var pool = mysql.createPool({
   database: "restaurants",
   port: 10003
 });
+
+
+module.exports = router;
