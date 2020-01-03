@@ -35,10 +35,20 @@ $(function() {
       }
     });
   });
-
   $(".reviewRestaurant").on("click", function(e) {
     let restaurantID = e.target.id;
     $("#hiddenRestaurantID").val(restaurantID);
+    $("#submitReview").attr("disabled", true);
     $("#reviewModal").modal("show");
+  });
+  $("#review").on("change keyup", function() {
+    let lengthOfReview = $("#review").val().length;
+    $("#charactersLeft").text(200 - lengthOfReview + " characters left");
+    if(lengthOfReview < 1){
+      $("#submitReview").attr("disabled", true);
+    }
+    else {
+      $("#submitReview").attr("disabled", false);
+    }
   });
 });
