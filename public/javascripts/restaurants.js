@@ -37,18 +37,45 @@ $(function() {
   });
   $(".reviewRestaurant").on("click", function(e) {
     let restaurantID = e.target.id;
-    $("#hiddenRestaurantID").val(restaurantID);
-    $("#submitReview").attr("disabled", true);
-    $("#reviewModal").modal("show");
+    //make fetch request here
+    fetch("http://127.0.0.1:3000/reviews/" + restaurantID)
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((jsonData) => {
+        let res;
+        res = jsonData;
+        for (var i = 0; i < res.length; i++) {
+          console.log(res[i]);
+          $("#reviews").append("<div><p>UserID: " + res[i].userID +
+            "</p><p>Review: " + res[i].review + "</p><p>Rating: " + res[i].rating + "</p></br></div>");
+        }
+        if(res.length < 1){
+          $("#reviews").append("<div id='noReviews'><h5 class='modal-title'>There doesn't seem to be any reviews on this restaurant, but you can be the first!</h5></div>")
+        }
+        //print out results
+        $("#hiddenRestaurantID").val(restaurantID);
+        $("#submitReview").attr("disabled", true);
+        $("#reviewModal").modal("show");
+      });
   });
   $("#review").on("change keyup", function() {
     let lengthOfReview = $("#review").val().length;
     $("#charactersLeft").text(200 - lengthOfReview + " characters left");
-    if(lengthOfReview < 1){
+    if (lengthOfReview < 1) {
       $("#submitReview").attr("disabled", true);
-    }
-    else {
+    } else {
       $("#submitReview").attr("disabled", false);
     }
+  });
+  $("#reviewModal").on("hidden.bs.modal", function() {
+    $("#reviews").empty();
+  });
+  $("#LoginModal").on("hidden.bs.modal", function() {
+    $("#loginUsername").val("");
+    $("#loginPassword").val("");
+    $("#createUsername").val("");
+    $("#createPassword").val("");
   });
 });

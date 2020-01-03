@@ -34,9 +34,9 @@
           <div class="modal-body">
             <form action="/" method="post">
               <label for="uName">Enter your username</label>
-              <input type="text" name="uName" class="form-control">
+              <input id="loginUsername" type="text" name="uName" class="form-control">
               <label for="passW">Enter your password</label>
-              <input type="password" name="passW" class="form-control">
+              <input id="loginPassword" type="password" name="passW" class="form-control">
               <br>
               <input type="submit" value="Login" class="btn btn-success btn-lg btn-block">
             </form>
@@ -49,9 +49,9 @@
           <div class="modal-body">
             <form action="/register/createAccount" method="post">
               <label for="username">Enter a username</label>
-              <input type="text" name="username" class="form-control">
+              <input id="createUsername" type="text" name="username" class="form-control">
               <label for="password">Enter a password</label>
-              <input type="password" name="password" class="form-control">
+              <input id="createPassword" type="password" name="password" class="form-control">
               <br>
               <input type="submit" value="Create account" class="btn btn-success btn-lg btn-block">
             </form>
@@ -145,7 +145,11 @@
             <% if(user) { %>
             <input hidden type="text" name="hiddenUserID" value="<%= user[0].ID %>">
             <% } %>
-            <label for="review">Leave a review</label>
+            <div id="reviews">
+
+            </div>
+              <h5 class="modal-title">Leave a review</h5>
+            <label for="review">How was your experience?</label>
             <textarea class="form-control" id="review" name="review" rows="4" cols="40"></textarea>
             <p id="charactersLeft">200 characters left</p>
             <label for="rating">Give a rating</label>
@@ -189,7 +193,7 @@
           <% if(user) {%>
           <button id="<%= restaurants[i].ID %>" class="btn btn-primary btn-block btn-lg reviewRestaurant" type="button">Review restaurant</button>
           <% } else { %>
-          <button disabled class="btn btn-primary btn-block btn-lg" type="button">Review restaurant</button>
+          <button disabled class="btn btn-primary btn-block btn-lg" type="button">Reviews</button>
           <% } %>
         </div>
       </div>
