@@ -78,4 +78,8 @@ $(function() {
     $("#createUsername").val("");
     $("#createPassword").val("");
   });
+  $("#CreateRestaurantModal").on("hidden.bs.modal", function() {
+    $("#nameForRestaurant").val("");
+    $("#genreForRestaurant").val("");
+  });
 });
