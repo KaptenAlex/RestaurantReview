@@ -27,21 +27,28 @@ router.get('/', function(req, res) {
   });
 });
 
-router.post("/", function(req, res) {
-  pool.getConnection(function(err, connection) {
-    if (err) throw err;
-    pool.query("SELECT * FROM `users` WHERE userName = ? AND userPassword = ?", [req.body.uName, req.body.passW], function(error, results) {
-      if (error) throw error;
-      pool.query("SELECT * FROM `restaurants`", function(error2, results2) {
-        res.render("homepage", {
-          user: results,
-          restaurants: results2,
-          title: "RestaurantReview"
-        });
+router.post("/", (req, res) => {
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+    pool.query("SELECT * FROM `users` WHERE userName = ?", [req.body.uName], (error2, user) => {
+      if (error2) throw error2;
+      bcrypt.compare(req.body.passW, user[0].userPassword, (error3, result) => {
+        if (error3) throw error3;
+        if (result) {
+          pool.query("SELECT * FROM `restaurants`", (error4, restaurants) => {
+            if (error4) throw error4;
+            res.render("homepage", {
+              title: "RestaurantReview",
+              user: user,
+              restaurants: restaurants
+            });
+          });
+        } else {
+          return res.status(400).send();
+        }
       });
     });
     connection.release();
   });
 });
-
 module.exports = router;
