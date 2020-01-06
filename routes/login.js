@@ -14,15 +14,14 @@ var pool = mysql.createPool({
   port: 10003
 });
 
-router.get('/', function(req, res) {
-  console.log(req.user);
-  pool.getConnection(function(err, connection) {
+router.get('/', (req, res) => {
+  pool.getConnection((err, connection) => {
     if (err) throw err;
-    pool.query("SELECT * FROM `restaurants`", function(error, results) {
+    pool.query("SELECT * FROM `restaurants`", (error, restaurants) => {
       if (error) throw error;
       res.render('homepage', {
         title: 'RestaurantReview',
-        restaurants: results,
+        restaurants: restaurants,
         user: req.user
       });
     });
@@ -54,4 +53,5 @@ router.get("/logout", (req, res) => {
     connection.release();
   });
 });
+
 module.exports = router;
