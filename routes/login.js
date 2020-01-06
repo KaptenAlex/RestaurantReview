@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
+const passport = require('passport');
+
 
 var pool = mysql.createPool({
   connectionLimit: 10,
@@ -27,28 +29,13 @@ router.get('/', function(req, res) {
   });
 });
 
-router.post("/", (req, res) => {
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
-    pool.query("SELECT * FROM `users` WHERE userName = ?", [req.body.uName], (error2, user) => {
-      if (error2) throw error2;
-      bcrypt.compare(req.body.passW, user[0].userPassword, (error3, result) => {
-        if (error3) throw error3;
-        if (result) {
-          pool.query("SELECT * FROM `restaurants`", (error4, restaurants) => {
-            if (error4) throw error4;
-            res.render("homepage", {
-              title: "RestaurantReview",
-              user: user,
-              restaurants: restaurants
-            });
-          });
-        } else {
-          return res.status(400).send();
-        }
-      });
-    });
-    connection.release();
-  });
+router.post("/", (req, res, next) => {
+  console.log("Login request");
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/error'
+  })(req, res, next);
+  console.log("Passport strategy");
 });
+
 module.exports = router;
