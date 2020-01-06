@@ -1,11 +1,8 @@
 $(function() {
-  console.log("ready for restaurant!");
   $(".openEditModal").on("click", function(e) {
     let id = e.target.id;
-    //console.log(id);
     fetch("http://127.0.0.1:3000/restaurants/" + id)
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then((jsonData) => {
@@ -27,11 +24,9 @@ $(function() {
       type: "DELETE",
       url: "http://127.0.0.1:3000/restaurants/delete/" + e.target.id,
       success: () => {
-        console.log("Success in deleting restaurant!");
         location.reload();
       },
       error: () => {
-        console.log("Failed deleting restaurant!");
       }
     });
   });
@@ -40,21 +35,18 @@ $(function() {
     //make fetch request here
     fetch("http://127.0.0.1:3000/reviews/" + restaurantID)
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then((jsonData) => {
         let res;
         res = jsonData;
         for (var i = 0; i < res.length; i++) {
-          console.log(res[i]);
           $("#reviews").append("<div><p>UserID: " + res[i].userID +
             "</p><p>Review: " + res[i].review + "</p><p>Rating: " + res[i].rating + "</p></br></div>");
         }
         if(res.length < 1){
           $("#reviews").append("<div id='noReviews'><h5 class='modal-title'>There doesn't seem to be any reviews on this restaurant, but you can be the first!</h5></div>")
         }
-        //print out results
         $("#hiddenRestaurantID").val(restaurantID);
         $("#submitReview").attr("disabled", true);
         $("#reviewModal").modal("show");
