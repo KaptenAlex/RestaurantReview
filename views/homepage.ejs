@@ -12,13 +12,11 @@
 <body>
   <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-brand"><%= title %></span>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginModal">
-      Sign in!
-    </button>
     <% if(user) { %>
     <a href="/logout" class="btn btn-primary">Sign out!</a>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateRestaurantModal">
-      Create restaurant
+    <% } else { %>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginModal">
+      Sign in!
     </button>
     <% } %>
   </nav>
@@ -166,9 +164,9 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <% if(user) { %>
-            <button type="submit" class="btn btn-primary" id="submitReview">Save changes</button>
+          <button type="submit" class="btn btn-primary" id="submitReview">Save changes</button>
           <% } else { %>
-            <button disabled type="button" class="btn btn-primary">You need to login to post a review!</button>
+          <button disabled type="button" class="btn btn-primary">You need to login to post a review!</button>
           <% } %>
         </div>
         </form>
@@ -178,6 +176,11 @@
   <% if(user) { %>
   <h1 class="display-1">Welcome to <%= title %>, <%= user[0].userName %></h1>
   <p>Your role is <%= user[0].roleID %></p>
+  <% if(user[0].roleID == 1) { %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateRestaurantModal">
+    Create restaurant
+  </button>
+  <% } %>
   <% } else { %>
   <h1 class="display-1">Welcome to <%= title %></h1>
   <% } %>
@@ -191,9 +194,11 @@
           <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
           <p class="card-text">Stuff relating to restaurant.</p>
           <% if(user) { %>
+          <% if(user[0].roleID == 1) { %>
           <button id="<%= restaurants[i].ID %>" class="openEditModal btn btn-primary">
             Edit restaurant
           </button>
+          <% } %>
           <% } %>
         </div>
         <div class="card-footer bg-grey">
