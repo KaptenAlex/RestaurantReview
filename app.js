@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var session = require('express-session'); 
 var passport = require('passport');
 
 var homepageRouter = require('./routes/login');
@@ -13,9 +14,20 @@ var reviewsRouter = require('./routes/reviews');
 
 var app = express();
 
+//require passport.js and send passport variable to it.
 require('./config/passport')(passport);
+
+//express session
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true
+}))
+
+//Start up passport
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
