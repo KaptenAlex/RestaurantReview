@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 var homepageRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
@@ -11,13 +12,20 @@ var restaurantsRouter = require('./routes/restaurants');
 var reviewsRouter = require('./routes/reviews');
 
 var app = express();
+
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
