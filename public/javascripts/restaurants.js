@@ -26,8 +26,7 @@ $(function() {
       success: () => {
         location.reload();
       },
-      error: () => {
-      }
+      error: () => {}
     });
   });
   $(".reviewRestaurant").on("click", function(e) {
@@ -44,7 +43,7 @@ $(function() {
           $("#reviews").append("<div><p>UserID: " + res[i].userID +
             "</p><p>Review: " + res[i].review + "</p><p>Rating: " + res[i].rating + "</p></br></div>");
         }
-        if(res.length < 1){
+        if (res.length < 1) {
           $("#reviews").append("<div id='noReviews'><h5 class='modal-title'>There doesn't seem to be any reviews on this restaurant, but you can be the first!</h5></div>")
         }
         $("#hiddenRestaurantID").val(restaurantID);

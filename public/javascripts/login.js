@@ -8,5 +8,4 @@ $(function(){
     $(".createAccount-box").hide();
     $(".login-box").show();
   });
-  console.log("dom ready!");
-})
+});
