@@ -15,6 +15,7 @@ var pool = mysql.createPool({
 });
 
 router.get('/', function(req, res) {
+  console.log(req.user);
   pool.getConnection(function(err, connection) {
     if (err) throw err;
     pool.query("SELECT * FROM `restaurants`", function(error, results) {
@@ -22,7 +23,7 @@ router.get('/', function(req, res) {
       res.render('homepage', {
         title: 'RestaurantReview',
         restaurants: results,
-        user: ""
+        user: req.user
       });
     });
     connection.release();
@@ -38,4 +39,19 @@ router.post("/", (req, res, next) => {
   console.log("Passport strategy");
 });
 
+router.get("/logout", (req, res) => {
+  req.logout();
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+    pool.query("SELECT * FROM `restaurants`", (err, restaurants) => {
+      if (err) throw err;
+      res.render("homepage", {
+        title: "RestaurantReview",
+        restaurants: restaurants,
+        user: ""
+      });
+    });
+    connection.release();
+  });
+});
 module.exports = router;
