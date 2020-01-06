@@ -12,33 +12,31 @@ var pool = mysql.createPool({
   port: 10003
 });
 
+//Create new account
 router.post("/createAccount", async (req, res) => {
   try {
     let username = req.body.username;
     let password = req.body.password;
-    const hashPass = await bcrypt.hash(password, 10)
+    const hashPass = await bcrypt.hash(password, 10);
     pool.getConnection(function(err, connection) {
       if (err) throw err;
-      pool.query("INSERT INTO `users` SET userName = ?, userPassword = ?, roleID = ?", [username, hashPass, 0], function(error, results, fields) {
+      //Need to add check to see if a user already exist with that username.
+      pool.query("INSERT INTO `users` SET userName = ?, userPassword = ?, roleID = ?", [username, hashPass, 0], function(error, results) {
         if (error) throw error;
-        pool.query("SELECT * FROM `restaurants`", function(error2, results2) {
+        pool.query("SELECT * FROM `restaurants`", function(error2, restaurants) {
           if (error2) throw error2;
-          pool.query("SELECT * FROM `users` WHERE userName = ? AND userPassword = ?", [username, hashPass], function(error3, results3) {
-            if (error3) throw error3;
-            console.log(results3);
-            res.render('homepage', {
-              user: results3,
-              restaurants: results2,
-              title: 'RestaurantReview'
-            });
+          res.render('homepage', {
+            title: 'RestaurantReview',
+            restaurants: restaurants,
+            user: ""
           });
         });
       });
       connection.release();
     });
-  } catch(e) {
+  } catch (e) {
     console.log(e);
-    res.redirect("/login")
+    res.redirect("/login");
   }
 });
 

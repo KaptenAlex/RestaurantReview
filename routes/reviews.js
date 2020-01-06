@@ -11,21 +11,19 @@ var pool = mysql.createPool({
   port: 10003
 });
 
+//GET ratings of a specific restaurant
 router.get("/:id", (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err;
     pool.query("SELECT rating,review,userID FROM `ratings` WHERE restaurantID = ?", [req.params.id], (error, reviews) => {
-      if (!error) {
-        console.log(JSON.stringify(reviews/*[0]*/));
-        res.json(reviews);
-      } else {
-        console.log(error);
-      }
+      if (error) throw error;
+      res.json(reviews);
     });
     connection.release();
   });
 });
 
+//POST a review to specific restaurant
 router.post("/", (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err;
@@ -37,7 +35,7 @@ router.post("/", (req, res) => {
           if (error3) throw error3;
           res.render("homepage", {
             title: "RestaurantReview",
-            user: "",
+            user: req.user,
             restaurants: restaurants
           });
         });

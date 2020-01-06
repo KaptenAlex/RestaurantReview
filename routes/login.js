@@ -14,6 +14,7 @@ var pool = mysql.createPool({
   port: 10003
 });
 
+//Get homepage
 router.get('/', (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err;
@@ -29,15 +30,15 @@ router.get('/', (req, res) => {
   });
 });
 
+//Login using passport strategy
 router.post("/", (req, res, next) => {
-  console.log("Login request");
   passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/error'
   })(req, res, next);
-  console.log("Passport strategy");
 });
 
+//user logout
 router.get("/logout", (req, res) => {
   req.logout();
   pool.getConnection((error, connection) => {

@@ -11,14 +11,13 @@ var pool = mysql.createPool({
   port: 10003
 });
 
-/*GET specific restaurant*/
+//GET specific restaurant
 router.get("/:id", (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err;
-    pool.query("SELECT * FROM `restaurants` WHERE id = ?", [req.params.id], (err, rows, fields) => {
+    pool.query("SELECT * FROM `restaurants` WHERE id = ?", [req.params.id], (err, restaurant) => {
       if (!err) {
-        console.log(JSON.stringify(rows[0]));
-        res.json(rows);
+        res.json(restaurant);
       } else {
         console.log(err);
       }
@@ -26,17 +25,18 @@ router.get("/:id", (req, res) => {
     connection.release();
   });
 });
-
+//UPDATE certain restaurant
 router.post("/:id", (req, res) => {
   pool.getConnection((err, connection) => {
-    pool.query("UPDATE `restaurants` SET name = ?, genre = ?, image = ? WHERE ID = ?", [req.body.restaurantName, req.body.restaurantGenre, null, req.params.id], (error, results, fields) => {
+    if (err) throw err;
+    pool.query("UPDATE `restaurants` SET name = ?, genre = ?, image = ? WHERE ID = ?", [req.body.restaurantName, req.body.restaurantGenre, null, req.params.id], (error, results) => {
       if (error) throw error;
-      pool.query("SELECT * FROM `restaurants`", (error2, results2) => {
+      pool.query("SELECT * FROM `restaurants`", (error2, restaurants) => {
         if (error2) throw error2;
         res.render("homepage", {
           title: "RestaurantReview",
-          user: "",
-          restaurants: results2
+          user: req.user,
+          restaurants: restaurants
         });
       });
     });
@@ -44,16 +44,18 @@ router.post("/:id", (req, res) => {
   });
 });
 
+//DELETE certain restaurant
 router.delete("/delete/:id", (req, res) => {
   pool.getConnection((err, connection) => {
+    if (err) throw err;
     pool.query("DELETE FROM `restaurants` WHERE ID = ?", [req.params.id], (error, results) => {
       if (error) throw error;
-      pool.query("SELECT * FROM `restaurants`", (error2, results2) => {
+      pool.query("SELECT * FROM `restaurants`", (error2, restaurants) => {
         if (error2) throw error2;
         res.render("homepage", {
           title: "RestaurantReview",
-          user: "",
-          restaurants: results2
+          user: req.user,
+          restaurants: restaurants
         });
       });
     });
@@ -61,16 +63,18 @@ router.delete("/delete/:id", (req, res) => {
   });
 });
 
+//CREATE new restaurant
 router.post("/", (req, res) => {
   pool.getConnection((err, connection) => {
+    if (err) throw err;
     pool.query("INSERT INTO `restaurants` (name, genre, image) VALUES (?,?,?)", [req.body.nameForRestaurant, req.body.genreForRestaurant, null], (error, results) => {
       if (error) throw error;
-      pool.query("SELECT * FROM `restaurants`", (error2, results2) => {
+      pool.query("SELECT * FROM `restaurants`", (error2, restaurants) => {
         if (error2) throw error2;
         res.render("homepage", {
           title: "RestaurantReview",
-          user: "",
-          restaurants: results2
+          user: req.user,
+          restaurants: restaurants
         });
       });
       connection.release();
