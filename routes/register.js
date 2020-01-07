@@ -26,7 +26,7 @@ router.post("/createAccount", async (req, res) => {
         if (error) throw error;
         pool.query("SELECT * FROM `restaurants`", (error, restaurants) => {
           if (error) throw error;
-          pool.query("SELECT AVG(rating) AverageScore,COUNT(rating) NumberOfRatings, restaurantID FROM `ratings` GROUP BY restaurantID", (error2, ratings) => {
+          pool.query("SELECT AVG(rating) AverageScore,COUNT(r.rating) NumberOfRatings, r.restaurantID FROM `ratings` AS r JOIN `users` AS u ON r.userID = u.ID GROUP BY restaurantID", (error2, ratings) => {
             if (error2) throw error2;
             res.render('homepage', {
               title: title,

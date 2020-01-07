@@ -14,7 +14,7 @@ var pool = mysql.createPool({
 
 //SQL queries
 let allRestaurants = "SELECT * FROM `restaurants`";
-let avgRating = "SELECT AVG(rating) AverageScore,COUNT(rating) NumberOfRatings, restaurantID FROM `ratings` GROUP BY restaurantID";
+let avgRating = "SELECT AVG(rating) AverageScore,COUNT(r.rating) NumberOfRatings, r.restaurantID FROM `ratings` AS r JOIN `users` AS u ON r.userID = u.ID GROUP BY restaurantID";
 
 //GET specific restaurant
 router.get("/:id", (req, res) => {
