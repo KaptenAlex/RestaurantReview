@@ -26,7 +26,6 @@ router.get('/', (req, res) => {
       if (error) throw error;
       pool.query(avgRating, (error2, ratings) => {
         if (error2) throw error2;
-        console.log(ratings);
         res.render('homepage', {
           title: title,
           restaurants: restaurants,

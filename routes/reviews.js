@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+let title = "RestaurantReview";
 
 var pool = mysql.createPool({
   connectionLimit: 10,
@@ -31,12 +32,13 @@ router.post("/", (req, res) => {
       if (error) throw error;
       pool.query("SELECT * FROM `restaurants`", (error2, restaurants) => {
         if (error2) throw error2;
-        pool.query("SELECT * FROM `ratings`", (error3, reviews) => {
+        pool.query("SELECT AVG(rating) AverageScore,COUNT(rating) NumberOfRatings, restaurantID FROM `ratings` GROUP BY restaurantID", (error3, ratings) => {
           if (error3) throw error3;
-          res.render("homepage", {
-            title: "RestaurantReview",
+          res.render('homepage', {
+            title: title,
+            restaurants: restaurants,
             user: req.user,
-            restaurants: restaurants
+            ratings: ratings
           });
         });
       });

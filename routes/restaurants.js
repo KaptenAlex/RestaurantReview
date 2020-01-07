@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+let title = "RestaurantReview";
 
 var pool = mysql.createPool({
   connectionLimit: 10,
@@ -13,6 +14,7 @@ var pool = mysql.createPool({
 
 //SQL queries
 let allRestaurants = "SELECT * FROM `restaurants`";
+let avgRating = "SELECT AVG(rating) AverageScore,COUNT(rating) NumberOfRatings, restaurantID FROM `ratings` GROUP BY restaurantID";
 
 //GET specific restaurant
 router.get("/:id", (req, res) => {
@@ -36,10 +38,14 @@ router.post("/:id", (req, res) => {
       if (error) throw error;
       pool.query(allRestaurants, (error2, restaurants) => {
         if (error2) throw error2;
-        res.render("homepage", {
-          title: "RestaurantReview",
-          user: req.user,
-          restaurants: restaurants
+        pool.query(avgRating, (error3, ratings) => {
+          if (error3) throw error3;
+          res.render('homepage', {
+            title: title,
+            restaurants: restaurants,
+            user: req.user,
+            ratings: ratings
+          });
         });
       });
     });
@@ -55,10 +61,14 @@ router.delete("/delete/:id", (req, res) => {
       if (error) throw error;
       pool.query(allRestaurants, (error2, restaurants) => {
         if (error2) throw error2;
-        res.render("homepage", {
-          title: "RestaurantReview",
-          user: req.user,
-          restaurants: restaurants
+        pool.query(avgRating, (error3, ratings) => {
+          if (error3) throw error3;
+          res.render('homepage', {
+            title: title,
+            restaurants: restaurants,
+            user: req.user,
+            ratings: ratings
+          });
         });
       });
     });
@@ -74,10 +84,14 @@ router.post("/", (req, res) => {
       if (error) throw error;
       pool.query(allRestaurants, (error2, restaurants) => {
         if (error2) throw error2;
-        res.render("homepage", {
-          title: "RestaurantReview",
-          user: req.user,
-          restaurants: restaurants
+        pool.query(avgRating, (error3, ratings) => {
+          if (error3) throw error3;
+          res.render('homepage', {
+            title: title,
+            restaurants: restaurants,
+            user: req.user,
+            ratings: ratings
+          });
         });
       });
       connection.release();

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
+let title = "RestaurantReview";
 
 var pool = mysql.createPool({
   connectionLimit: 10,
@@ -23,12 +24,16 @@ router.post("/createAccount", async (req, res) => {
       //Need to add check to see if a user already exist with that username.
       pool.query("INSERT INTO `users` SET userName = ?, userPassword = ?, roleID = ?", [username, hashPass, 0], function(error, results) {
         if (error) throw error;
-        pool.query("SELECT * FROM `restaurants`", function(error2, restaurants) {
-          if (error2) throw error2;
-          res.render('homepage', {
-            title: 'RestaurantReview',
-            restaurants: restaurants,
-            user: ""
+        pool.query("SELECT * FROM `restaurants`", (error, restaurants) => {
+          if (error) throw error;
+          pool.query("SELECT AVG(rating) AverageScore,COUNT(rating) NumberOfRatings, restaurantID FROM `ratings` GROUP BY restaurantID", (error2, ratings) => {
+            if (error2) throw error2;
+            res.render('homepage', {
+              title: title,
+              restaurants: restaurants,
+              user: "",
+              ratings: ratings
+            });
           });
         });
       });
