@@ -42,6 +42,7 @@ $(function() {
       error: () => {}
     });
   });
+
   $(".reviewRestaurant").on("click", function(e) {
     let restaurantID = e.target.id;
     //make fetch request here
@@ -64,6 +65,7 @@ $(function() {
         $("#reviewModal").modal("show");
       });
   });
+
   $("#review").on("change keyup", function() {
     let lengthOfReview = $("#review").val().length;
     $("#charactersLeft").text(200 - lengthOfReview + " characters left");
@@ -73,18 +75,21 @@ $(function() {
       $("#submitReview").attr("disabled", false);
     }
   });
+
   $("#reviewModal").on("hidden.bs.modal", function() {
     $("#reviews").empty();
     $("#review").val("");
     $("#rating").val("1");
     $("#charactersLeft").text("200 characters left");
   });
+
   $("#LoginModal").on("hidden.bs.modal", function() {
     $("#loginUsername").val("");
     $("#loginPassword").val("");
     $("#createUsername").val("");
     $("#createPassword").val("");
   });
+  
   $("#CreateRestaurantModal").on("hidden.bs.modal", function() {
     $("#nameForRestaurant").val("");
     $("#genreForRestaurant").val("");
