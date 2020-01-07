@@ -11,6 +11,9 @@ var pool = mysql.createPool({
   port: 10003
 });
 
+//SQL queries
+let allRestaurants = "SELECT * FROM `restaurants`";
+
 //GET specific restaurant
 router.get("/:id", (req, res) => {
   pool.getConnection((err, connection) => {
@@ -31,7 +34,7 @@ router.post("/:id", (req, res) => {
     if (err) throw err;
     pool.query("UPDATE `restaurants` SET name = ?, genre = ?, image = ? WHERE ID = ?", [req.body.restaurantName, req.body.restaurantGenre, null, req.params.id], (error, results) => {
       if (error) throw error;
-      pool.query("SELECT * FROM `restaurants`", (error2, restaurants) => {
+      pool.query(allRestaurants, (error2, restaurants) => {
         if (error2) throw error2;
         res.render("homepage", {
           title: "RestaurantReview",
@@ -50,7 +53,7 @@ router.delete("/delete/:id", (req, res) => {
     if (err) throw err;
     pool.query("DELETE FROM `restaurants` WHERE ID = ?", [req.params.id], (error, results) => {
       if (error) throw error;
-      pool.query("SELECT * FROM `restaurants`", (error2, restaurants) => {
+      pool.query(allRestaurants, (error2, restaurants) => {
         if (error2) throw error2;
         res.render("homepage", {
           title: "RestaurantReview",
@@ -69,7 +72,7 @@ router.post("/", (req, res) => {
     if (err) throw err;
     pool.query("INSERT INTO `restaurants` (name, genre, image) VALUES (?,?,?)", [req.body.nameForRestaurant, req.body.genreForRestaurant, null], (error, results) => {
       if (error) throw error;
-      pool.query("SELECT * FROM `restaurants`", (error2, restaurants) => {
+      pool.query(allRestaurants, (error2, restaurants) => {
         if (error2) throw error2;
         res.render("homepage", {
           title: "RestaurantReview",
