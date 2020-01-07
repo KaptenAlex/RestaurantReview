@@ -20,16 +20,20 @@ router.get('/', (req, res) => {
     if (err) throw err;
     pool.query("SELECT * FROM `restaurants`", (error, restaurants) => {
       if (error) throw error;
-      res.render('homepage', {
-        title: 'RestaurantReview',
-        restaurants: restaurants,
-        user: req.user
+      pool.query("SELECT AVG(rating) AverageScore,COUNT(rating) NumberOfRatings, restaurantID FROM `ratings` GROUP BY restaurantID", (error2, ratings) => {
+        if(error2) throw error2;
+        console.log(ratings);
+        res.render('homepage', {
+          title: 'RestaurantReview',
+          restaurants: restaurants,
+          user: req.user,
+          ratings: ratings
+        });
       });
     });
     connection.release();
   });
 });
-
 //Login using passport strategy
 router.post("/", (req, res, next) => {
   passport.authenticate('local', {

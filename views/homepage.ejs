@@ -193,6 +193,11 @@
         <div class="card-body">
           <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
           <p class="card-text">Stuff relating to restaurant.</p>
+          <% for (var y = 0; y < ratings.length; y++) { %>
+          <% if(restaurants[i].ID === ratings[y].restaurantID) { %>
+          <p class="font-weight-bolder">Average rating of <%= ratings[y].AverageScore %> by <%= ratings[y].NumberOfRatings %> reviewers</p>
+          <% } %>
+          <% } %>
           <% if(user) { %>
           <% if(user[0].roleID == 1) { %>
           <button id="<%= restaurants[i].ID %>" class="openEditModal btn btn-primary">
