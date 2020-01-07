@@ -10,20 +10,27 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <span class="navbar-brand"><%= title %></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
     <% if(user) { %>
       <% if(user[0].roleID === 1) { %>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#CreateRestaurantModal">
-           + Create restaurant
-        </button>
+        <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#CreateRestaurantModal">
+           Create restaurant
+        </a>
       <% } %>
-    <a href="/logout" class="btn btn-primary">Sign out!</a>
+    <a href="/logout" class="nav-item nav-link">Sign out!</a>
     <% } else { %>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginModal">
+    <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#LoginModal">
       Sign in!
-    </button>
+    </a>
     <% } %>
+  </div>
+</div>
   </nav>
   <!-- Login/Create user modal -->
   <div class="modal fade" id="LoginModal" tabindex="-1" role="login" aria-labelledby="LoginModal" aria-hidden="true">
