@@ -188,7 +188,7 @@
     </div>
   </div>
   <div class="row row-cols-1 row-cols-md-1">
-    <div class="text-break">
+    <div class="col mb-4 text-break">
       <% if(user) { %>
       <% if(user[0].roleID == 1) { %>
       <h1 class="display-1 welcome">Welcome <%= user[0].userName %></h1>
@@ -201,7 +201,24 @@
       <h1 class="display-1 welcome">Welcome to <%= title %></h1>
     </div>
     <% } %>
-
+    <div class="scaledDown mx-auto">
+        <button type="button" name="button" class="mb-4 btn-secondary btn-lg btn-block">Top ten restaurants</button>
+        <div class="topten">
+          <% for(var i = 0; i < topTen.length; i++) { %>
+            <div class="col mb-4">
+              <div class="card">
+                <h5 class="card-header"><%= topTen[i].restaurantID %></h5>
+                <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="Restaurant image">
+                <div class="card-body">
+                  <h5 class="card-title">Genre:</h5>
+                  <p class="font-weight-bolder">Average rating of <%= topTen[i].averageScore %> from <%= topTen[i].numberOfRatings %> reviewers</p>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+        <button type="button" name="button" class="mb-4 btn-secondary btn-lg btn-block">Number of genres of different restaurants</button>
+    </div>
     <% for (var i = 0; i < restaurants.length; i++) { %>
     <div class="scaledDown mx-auto">
       <div class="col mb-4">
@@ -210,7 +227,6 @@
           <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="Restaurant image">
           <div class="card-body">
             <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
-            <p class="card-text">Stuff relating to restaurant.</p>
             <% for (var y = 0; y < ratings.length; y++) { %>
             <% if(restaurants[i].ID === ratings[y].restaurantID) { %>
             <p class="font-weight-bolder">Average rating of <%= ratings[y].AverageScore %> by <%= ratings[y].NumberOfRatings %> reviewers</p>

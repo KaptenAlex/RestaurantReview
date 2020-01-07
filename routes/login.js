@@ -26,11 +26,22 @@ router.get('/', (req, res) => {
       if (error) throw error;
       pool.query(avgRating, (error2, ratings) => {
         if (error2) throw error2;
-        res.render('homepage', {
-          title: title,
-          restaurants: restaurants,
-          user: req.user,
-          ratings: ratings
+        /* TODO: Print them each out into a some kind of dropdownlist*/
+        pool.query("SELECT AVG(rating) averageScore,COUNT(r.rating) numberOfRatings, r.restaurantID FROM `ratings` AS r JOIN `users` AS u ON r.userID = u.ID GROUP BY restaurantID ORDER BY AverageScore DESC", (error3, top10restaurants) => {
+          if (error3) throw error3;
+          console.log(top10restaurants);
+          pool.query("SELECT genre,COUNT(genre) AS noOfGenres FROM `restaurants` GROUP BY genre ORDER BY noOfGenres DESC", (error4, restaurantsByGenre) => {
+            if (error4) throw error4;
+            console.log(restaurantsByGenre);
+            res.render('homepage', {
+              title: title,
+              restaurants: restaurants,
+              user: req.user,
+              ratings: ratings,
+              topTen: top10restaurants,
+              NoOfRestaurantGenres: restaurantsByGenre
+            });
+          });
         });
       });
     });
