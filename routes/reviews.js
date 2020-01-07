@@ -16,7 +16,9 @@ var pool = mysql.createPool({
 router.get("/:id", (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err;
-    pool.query("SELECT rating,review,userID FROM `ratings` WHERE restaurantID = ?", [req.params.id], (error, reviews) => {
+    pool.query("SELECT r.rating,r.review,u.userName FROM `ratings` AS r JOIN `users` as u ON r.userID = u.ID WHERE restaurantID = ?", [req.params.id], (error, reviews) => {
+      console.log(reviews);
+      console.log(JSON.stringify(reviews));
       if (error) throw error;
       res.json(reviews);
     });
