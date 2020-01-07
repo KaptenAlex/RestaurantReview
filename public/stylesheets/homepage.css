@@ -26,4 +26,9 @@ body {
   color: azure;
 }
 
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 /*# sourceMappingURL=homepage.css.map */

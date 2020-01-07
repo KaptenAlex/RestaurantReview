@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= title %></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/homepage.css">
@@ -17,20 +17,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-    <% if(user) { %>
-      <% if(user[0].roleID === 1) { %>
+        <% if(user) { %>
+        <% if(user[0].roleID === 1) { %>
         <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#CreateRestaurantModal">
-           Create restaurant
+          Create restaurant
         </a>
-      <% } %>
-    <a href="/logout" class="nav-item nav-link">Sign out!</a>
-    <% } else { %>
-    <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#LoginModal">
-      Sign in!
-    </a>
-    <% } %>
-  </div>
-</div>
+        <% } %>
+        <a href="/logout" class="nav-item nav-link">Sign out!</a>
+        <% } else { %>
+        <a href="#" class="nav-item nav-link" data-toggle="modal" data-target="#LoginModal">
+          Sign in!
+        </a>
+        <% } %>
+      </div>
+    </div>
   </nav>
   <!-- Login/Create user modal -->
   <div class="modal fade" id="LoginModal" tabindex="-1" role="login" aria-labelledby="LoginModal" aria-hidden="true">
@@ -103,13 +103,16 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button id="restaurantID" type="submit" class="btn btn-primary">Save changes</button>
           </form>
+        </div>
+        <div class="modal-footer">
           <!-- Action gets set via jQuery -->
-          <form id="deleteRestaurant" action="" method="post">
+          <form id="deleteRestaurant" action="" method="post" class="">
             <button id="" type="submit" class="btn btn-danger deleteRestaurant">Delete restaurant</button>
           </form>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- Create restaurant modal -->
   <div class="modal fade" id="CreateRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="CreateRestaurantModal" aria-hidden="true">
@@ -141,10 +144,9 @@
       </div>
     </div>
   </div>
-
   <!-- Review modal -->
   <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Review</h5>
@@ -185,18 +187,20 @@
       </div>
     </div>
   </div>
-<div class="row row-cols-1 row-cols-md-1">
-  <% if(user) { %>
-  <% if(user[0].roleID == 1) { %>
-    <h1 class="display-1 welcome">Welcome to <%= title %>, <%= user[0].userName %></h1>
-    <p class="display-4 welcome">Your role is Admin %></p>
-  <% } else if(user[0].roleID == 0) { %>
-    <h1 class="display-1 welcome">Welcome to <%= title %>, <%= user[0].userName %></h1>
-    <p class="display-4 welcome">Your role is User %></p>
-  <% } %>
-  <% } else { %>
-  <h1 class="display-1 welcome">Welcome to <%= title %></h1>
-  <% } %>
+  <div class="row row-cols-1 row-cols-md-1">
+    <div class="text-break">
+      <% if(user) { %>
+      <% if(user[0].roleID == 1) { %>
+      <h1 class="display-1 welcome">Welcome <%= user[0].userName %></h1>
+      <p class="display-4 welcome">Your role is Admin %></p>
+      <% } else if(user[0].roleID == 0) { %>
+      <h1 class="display-1 welcome">Welcome <%= user[0].userName %></h1>
+      <p class="display-4 welcome">Your role is User %></p>
+      <% } %>
+      <% } else { %>
+      <h1 class="display-1 welcome">Welcome to <%= title %></h1>
+    </div>
+    <% } %>
 
     <% for (var i = 0; i < restaurants.length; i++) { %>
     <div class="scaledDown mx-auto">
