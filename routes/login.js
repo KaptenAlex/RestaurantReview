@@ -16,23 +16,23 @@ var pool = mysql.createPool({
 
 //SQL queries
 let allRestaurants = "SELECT * FROM `restaurants`";
-let avgRating = "SELECT AVG(rating) AverageScore,COUNT(r.rating) NumberOfRatings, r.restaurantID FROM `ratings` AS r JOIN `users` AS u ON r.userID = u.ID GROUP BY restaurantID";
+let avgRatingForRestaurant = "SELECT AVG(rating) AverageScore,COUNT(r.rating) NumberOfRatings, r.restaurantID FROM `ratings` AS r JOIN `users` AS u ON r.userID = u.ID GROUP BY restaurantID";
+/* TODO: Add restaurant name instead of ID in cards. */
+let topTenRatedRestaurants = "SELECT AVG(rating) averageScore,COUNT(r.rating) numberOfRatings, r.restaurantID FROM `ratings` AS r JOIN `users` AS u ON r.userID = u.ID GROUP BY restaurantID ORDER BY averageScore DESC LIMIT 10";
+let noOfGenresAndWhich = "SELECT genre,COUNT(genre) AS noOfGenres FROM `restaurants` GROUP BY genre ORDER BY noOfGenres DESC";
 
-//Get homepage
+//GET homepage
 router.get('/', (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err;
     pool.query(allRestaurants, (error, restaurants) => {
       if (error) throw error;
-      pool.query(avgRating, (error2, ratings) => {
+      pool.query(avgRatingForRestaurant, (error2, ratings) => {
         if (error2) throw error2;
-        /* TODO: Print them each out into a some kind of dropdownlist*/
-        pool.query("SELECT AVG(rating) averageScore,COUNT(r.rating) numberOfRatings, r.restaurantID FROM `ratings` AS r JOIN `users` AS u ON r.userID = u.ID GROUP BY restaurantID ORDER BY AverageScore DESC", (error3, top10restaurants) => {
+        pool.query(topTenRatedRestaurants, (error3, top10restaurants) => {
           if (error3) throw error3;
-          console.log(top10restaurants);
-          pool.query("SELECT genre,COUNT(genre) AS noOfGenres FROM `restaurants` GROUP BY genre ORDER BY noOfGenres DESC", (error4, restaurantsByGenre) => {
+          pool.query(noOfGenresAndWhich, (error4, restaurantsByGenre) => {
             if (error4) throw error4;
-            console.log(restaurantsByGenre);
             res.render('homepage', {
               title: title,
               restaurants: restaurants,
