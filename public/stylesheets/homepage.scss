@@ -10,7 +10,7 @@ body {
 .scaledDown {
   max-width: 95%;
   text-align: center;
-  color: azure
+  color: azure;
 }
 
 .card {
@@ -19,8 +19,9 @@ body {
 }
 
 #loginModal {
-  color:black;
+  color: black;
 }
+
 .navbar-dark .navbar-nav .nav-link {
   color: azure;
 }
@@ -28,4 +29,11 @@ body {
 .row {
   margin-left: 0;
   margin-right: 0;
+}
+
+.table {
+  text-align: center;
+}
+.thGenres{
+  width:33%;
 }

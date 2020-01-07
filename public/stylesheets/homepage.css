@@ -31,4 +31,12 @@ body {
   margin-right: 0;
 }
 
+.table {
+  text-align: center;
+}
+
+.thGenres {
+  width: 33%;
+}
+
 /*# sourceMappingURL=homepage.css.map */

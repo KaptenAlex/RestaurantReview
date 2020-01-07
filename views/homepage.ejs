@@ -202,51 +202,88 @@
     </div>
     <% } %>
     <div class="scaledDown mx-auto">
-        <button type="button" name="button" class="mb-4 btn-secondary btn-lg btn-block">Top ten restaurants</button>
-        <div class="topten">
-          <% for(var i = 0; i < topTen.length; i++) { %>
-            <div class="col mb-4">
-              <div class="card">
-                <h5 class="card-header"><%= topTen[i].restaurantID %></h5>
-                <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="Restaurant image">
-                <div class="card-body">
-                  <h5 class="card-title">Genre:</h5>
-                  <p class="font-weight-bolder">Average rating of <%= topTen[i].averageScore %> from <%= topTen[i].numberOfRatings %> reviewers</p>
-                </div>
-              </div>
-            </div>
-          <% } %>
-        </div>
-        <button type="button" name="button" class="mb-4 btn-secondary btn-lg btn-block">Number of genres of different restaurants</button>
-    </div>
-    <% for (var i = 0; i < restaurants.length; i++) { %>
-    <div class="scaledDown mx-auto">
-      <div class="col mb-4">
-        <div class="card">
-          <h5 class="card-header"><%= restaurants[i].name %></h5>
-          <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="Restaurant image">
-          <div class="card-body">
-            <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
-            <% for (var y = 0; y < ratings.length; y++) { %>
-            <% if(restaurants[i].ID === ratings[y].restaurantID) { %>
-            <p class="font-weight-bolder">Average rating of <%= ratings[y].AverageScore %> by <%= ratings[y].NumberOfRatings %> reviewers</p>
-            <% } %>
-            <% } %>
-            <% if(user) { %>
-            <% if(user[0].roleID == 1) { %>
-            <button id="<%= restaurants[i].ID %>" class="openEditModal btn btn-primary">
-              Edit restaurant
-            </button>
-            <% } %>
-            <% } %>
-          </div>
-          <div class="card-footer bg-grey">
-            <button id="<%= restaurants[i].ID %>" class="btn btn-primary btn-block btn-lg reviewRestaurant" type="button">Reviews</button>
+      <button type="button" name="button" class="mb-4 btn-success btn-lg btn-block">Number of genres of different restaurants</button>
+      <div class="noOfGenres">
+        <div class="col mb-4">
+          <div class="table-responsive">
+            <table class="table table-striped table-dark">
+              <thead>
+                <tr>
+                  <th class="thGenres" scope="col">#</th>
+                  <th class="thGenres" scope="col">Genre</th>
+                  <th class="thGenres" scope="col"># of genres</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i = 0; i < NoOfRestaurantGenres.length; i++) { %>
+                <tr>
+                  <th scope="col"><%= i %></th>
+                  <td><%= NoOfRestaurantGenres[i].genre %></td>
+                  <td><%= NoOfRestaurantGenres[i].noOfGenres %></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+      <button type="button" name="button" class="mb-4 btn-success btn-lg btn-block">Top ten restaurants</button>
+      <div class="topten">
+        <% for(var i = 0; i < topTen.length; i++) { %>
+        <div class="col mb-4">
+          <div class="card">
+            <h5 class="card-header"><%= topTen[i].restaurantID %></h5>
+            <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="Restaurant image">
+            <div class="card-body">
+              <h5 class="card-title">Genre:</h5>
+              <p class="font-weight-bolder">Average rating of <%= topTen[i].averageScore %> from <%= topTen[i].numberOfRatings %> reviewers</p>
+              <% if(user) { %>
+              <% if(user[0].roleID == 1) { %>
+              <button id="<%= topTen[i].restaurantID %>" class="openEditModal btn btn-primary">
+                Edit restaurant
+              </button>
+              <% } %>
+              <% } %>
+            </div>
+            <div class="card-footer bg-grey">
+              <button id="<%= topTen[i].restaurantID %>" class="btn btn-primary btn-block btn-lg reviewRestaurant" type="button">Reviews</button>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <button type="button" name="button" class="mb-4 btn-success btn-lg btn-block">All restaurants</button>
     </div>
-    <% } %>
+    <div class="allRestaurants">
+      <% for (var i = 0; i < restaurants.length; i++) { %>
+      <div class="scaledDown mx-auto">
+        <div class="col mb-4">
+          <div class="card">
+            <h5 class="card-header"><%= restaurants[i].name %></h5>
+            <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="Restaurant image">
+            <div class="card-body">
+              <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
+              <% for (var y = 0; y < ratings.length; y++) { %>
+              <% if(restaurants[i].ID === ratings[y].restaurantID) { %>
+              <p class="font-weight-bolder">Average rating of <%= ratings[y].AverageScore %> by <%= ratings[y].NumberOfRatings %> reviewers</p>
+              <% } %>
+              <% } %>
+              <% if(user) { %>
+              <% if(user[0].roleID == 1) { %>
+              <button id="<%= restaurants[i].ID %>" class="openEditModal btn btn-primary">
+                Edit restaurant
+              </button>
+              <% } %>
+              <% } %>
+            </div>
+            <div class="card-footer bg-grey">
+              <button id="<%= restaurants[i].ID %>" class="btn btn-primary btn-block btn-lg reviewRestaurant" type="button">Reviews</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
