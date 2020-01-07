@@ -13,6 +13,11 @@
   <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-brand"><%= title %></span>
     <% if(user) { %>
+      <% if(user[0].roleID === 1) { %>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#CreateRestaurantModal">
+           + Create restaurant
+        </button>
+      <% } %>
     <a href="/logout" class="btn btn-primary">Sign out!</a>
     <% } else { %>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginModal">
@@ -122,8 +127,8 @@
           -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add restaurant</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Add restaurant</button>
           </form>
         </div>
       </div>
@@ -173,41 +178,44 @@
       </div>
     </div>
   </div>
+<div class="row row-cols-1 row-cols-md-1">
   <% if(user) { %>
-  <h1 class="display-1">Welcome to <%= title %>, <%= user[0].userName %></h1>
-  <p>Your role is <%= user[0].roleID %></p>
   <% if(user[0].roleID == 1) { %>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateRestaurantModal">
-    Create restaurant
-  </button>
+    <h1 class="display-1 welcome">Welcome to <%= title %>, <%= user[0].userName %></h1>
+    <p class="display-4 welcome">Your role is Admin %></p>
+  <% } else if(user[0].roleID == 0) { %>
+    <h1 class="display-1 welcome">Welcome to <%= title %>, <%= user[0].userName %></h1>
+    <p class="display-4 welcome">Your role is User %></p>
   <% } %>
   <% } else { %>
-  <h1 class="display-1">Welcome to <%= title %></h1>
+  <h1 class="display-1 welcome">Welcome to <%= title %></h1>
   <% } %>
-  <div class="row row-cols-1 row-cols-md-1">
+
     <% for (var i = 0; i < restaurants.length; i++) { %>
-    <div class="col mb-4">
-      <div class="card">
-        <h5 class="card-header"><%= restaurants[i].name %></h5>
-        <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
-          <p class="card-text">Stuff relating to restaurant.</p>
-          <% for (var y = 0; y < ratings.length; y++) { %>
-          <% if(restaurants[i].ID === ratings[y].restaurantID) { %>
-          <p class="font-weight-bolder">Average rating of <%= ratings[y].AverageScore %> by <%= ratings[y].NumberOfRatings %> reviewers</p>
-          <% } %>
-          <% } %>
-          <% if(user) { %>
-          <% if(user[0].roleID == 1) { %>
-          <button id="<%= restaurants[i].ID %>" class="openEditModal btn btn-primary">
-            Edit restaurant
-          </button>
-          <% } %>
-          <% } %>
-        </div>
-        <div class="card-footer bg-grey">
-          <button id="<%= restaurants[i].ID %>" class="btn btn-primary btn-block btn-lg reviewRestaurant" type="button">Reviews</button>
+    <div class="scaledDown mx-auto">
+      <div class="col mb-4">
+        <div class="card">
+          <h5 class="card-header"><%= restaurants[i].name %></h5>
+          <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="Restaurant image">
+          <div class="card-body">
+            <h5 class="card-title">Genre: <%= restaurants[i].genre %></h5>
+            <p class="card-text">Stuff relating to restaurant.</p>
+            <% for (var y = 0; y < ratings.length; y++) { %>
+            <% if(restaurants[i].ID === ratings[y].restaurantID) { %>
+            <p class="font-weight-bolder">Average rating of <%= ratings[y].AverageScore %> by <%= ratings[y].NumberOfRatings %> reviewers</p>
+            <% } %>
+            <% } %>
+            <% if(user) { %>
+            <% if(user[0].roleID == 1) { %>
+            <button id="<%= restaurants[i].ID %>" class="openEditModal btn btn-primary">
+              Edit restaurant
+            </button>
+            <% } %>
+            <% } %>
+          </div>
+          <div class="card-footer bg-grey">
+            <button id="<%= restaurants[i].ID %>" class="btn btn-primary btn-block btn-lg reviewRestaurant" type="button">Reviews</button>
+          </div>
         </div>
       </div>
     </div>
