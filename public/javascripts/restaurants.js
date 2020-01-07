@@ -1,4 +1,17 @@
 $(function() {
+
+  $("#togglenoOfGenres").on("click", function() {
+    $(".noOfGenres").toggle("slow");
+  });
+
+  $("#toggleTopTen").on("click", function() {
+    $(".topTen").toggle("slow");
+  });
+
+  $("#toggleallRestaurants").on("click", function() {
+    $(".allRestaurants").toggle("slow");
+  });
+
   $(".openEditModal").on("click", function(e) {
     let id = e.target.id;
     fetch("http://127.0.0.1:3000/restaurants/" + id)

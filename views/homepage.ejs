@@ -202,7 +202,7 @@
     </div>
     <% } %>
     <div class="scaledDown mx-auto">
-      <button type="button" name="button" class="mb-4 btn-success btn-lg btn-block">Number of genres of different restaurants</button>
+      <button id="togglenoOfGenres"type="button" name="button" class="mb-4 btn-success btn-lg btn-block">Number of genres of different restaurants</button>
       <div class="noOfGenres">
         <div class="col mb-4">
           <div class="table-responsive">
@@ -227,8 +227,8 @@
           </div>
         </div>
       </div>
-      <button type="button" name="button" class="mb-4 btn-success btn-lg btn-block">Top ten restaurants</button>
-      <div class="topten">
+      <button id="toggleTopTen" type="button" name="button" class="mb-4 btn-success btn-lg btn-block">Top ten restaurants</button>
+      <div class="topTen">
         <% for(var i = 0; i < topTen.length; i++) { %>
         <div class="col mb-4">
           <div class="card">
@@ -252,7 +252,7 @@
         </div>
         <% } %>
       </div>
-      <button type="button" name="button" class="mb-4 btn-success btn-lg btn-block">All restaurants</button>
+      <button id="toggleallRestaurants"type="button" name="button" class="mb-4 btn-success btn-lg btn-block">All restaurants</button>
     </div>
     <div class="allRestaurants">
       <% for (var i = 0; i < restaurants.length; i++) { %>

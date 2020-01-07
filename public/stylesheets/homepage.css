@@ -39,4 +39,12 @@ body {
   width: 33%;
 }
 
+.topTen {
+  display: none;
+}
+
+.noOfGenres {
+  display: none;
+}
+
 /*# sourceMappingURL=homepage.css.map */
