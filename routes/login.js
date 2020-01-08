@@ -60,16 +60,23 @@ router.get("/logout", (req, res) => {
   req.logout();
   pool.getConnection((error, connection) => {
     if (error) throw error;
-    pool.query(allRestaurants, (err, restaurants) => {
-      if (err) throw err;
-      pool.query(avgRating, (error2, ratings) => {
+    pool.query(allRestaurants, (error, restaurants) => {
+      if (error) throw error;
+      pool.query(avgRatingForRestaurant, (error2, ratings) => {
         if (error2) throw error2;
-        console.log(ratings);
-        res.render('homepage', {
-          title: title,
-          restaurants: restaurants,
-          user: "",
-          ratings: ratings
+        pool.query(topTenRatedRestaurants, (error3, top10restaurants) => {
+          if (error3) throw error3;
+          pool.query(noOfGenresAndWhich, (error4, restaurantsByGenre) => {
+            if (error4) throw error4;
+            res.render('homepage', {
+              title: title,
+              restaurants: restaurants,
+              user: req.user,
+              ratings: ratings,
+              topTen: top10restaurants,
+              NoOfRestaurantGenres: restaurantsByGenre
+            });
+          });
         });
       });
     });
