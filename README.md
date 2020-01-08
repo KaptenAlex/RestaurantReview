@@ -13,4 +13,5 @@ Steps to running this application.
 #9 Admin account details username: "tree", password: "tree"
 #10 Admin account allows CRUD of restaurants while the normal account can't.
 #11 A normal account can be logged into by entering username: "user", password:"user"
-#12 Try to enjoy?
+#12 Top ten list does work but since the ratings list don't contain any ratings, it's empty. 
+#13 Try to enjoy?
