@@ -46,3 +46,12 @@ body {
 .noOfGenres{
   display: none
 }
+
+.userReview{
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.userReview:nth-child(odd) {
+  background-color: lightgray;
+}

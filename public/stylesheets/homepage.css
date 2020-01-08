@@ -47,4 +47,13 @@ body {
   display: none;
 }
 
+.userReview {
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.userReview:nth-child(odd) {
+  background-color: lightgray;
+}
+
 /*# sourceMappingURL=homepage.css.map */
