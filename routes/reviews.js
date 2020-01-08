@@ -22,7 +22,7 @@ let noOfGenresAndWhich = "SELECT genre,COUNT(genre) AS noOfGenres FROM `restaura
 router.get("/:id", (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err;
-    pool.query("SELECT r.rating,r.review,u.userName FROM `ratings` AS r JOIN `users` as u ON r.userID = u.ID WHERE restaurantID = ?", [req.params.id], (error, reviews) => {
+    pool.query("SELECT r.rating,r.review,u.userName,r.date FROM `ratings` AS r JOIN `users` as u ON r.userID = u.ID WHERE restaurantID = ?", [req.params.id], (error, reviews) => {
       if (error) throw error;
       res.json(reviews);
     });
@@ -34,7 +34,8 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err;
-    pool.query("INSERT INTO `ratings` SET rating = ?, restaurantID = ?, review = ?, userID = ?", [req.body.rating, req.body.hiddenRestaurantID, req.body.review, req.body.hiddenUserID], (error, results) => {
+    let date = new Date();
+    pool.query("INSERT INTO `ratings` SET rating = ?, restaurantID = ?, review = ?, userID = ?, date = ?", [req.body.rating, req.body.hiddenRestaurantID, req.body.review, req.body.hiddenUserID, date], (error, results) => {
       if (error) throw error;
       pool.query(allRestaurants, (error, restaurants) => {
         if (error) throw error;
