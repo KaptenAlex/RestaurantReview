@@ -22,34 +22,15 @@ let noOfGenresAndWhich = "SELECT genre,COUNT(genre) AS noOfGenres FROM `restaura
 //Create new account
 router.post("/createAccount", async (req, res) => {
   try {
-    let username = req.body.username;
-    let password = req.body.password;
-    const hashPass = await bcrypt.hash(password, 10);
+    const hashPass = await bcrypt.hash(req.body.password, 10);
     pool.getConnection(function(err, connection) {
       if (err) throw err;
-      //Need to add check to see if a user already exist with that username.
-      pool.query("INSERT INTO `users` SET userName = ?, userPassword = ?, roleID = ?", [username, hashPass, 0], function(error, results) {
+      /*Need to add check to see if a user already exist with that username.
+        and send the user a message describing what went wrong.
+      */
+      pool.query("INSERT INTO `users` SET userName = ?, userPassword = ?, roleID = ?", [req.body.username, hashPass, 0], function(error, results) {
         if (error) throw error;
-        pool.query(allRestaurants, (error, restaurants) => {
-          if (error) throw error;
-          pool.query(avgRatingForRestaurant, (error2, ratings) => {
-            if (error2) throw error2;
-            pool.query(topTenRatedRestaurants, (error3, top10restaurants) => {
-              if (error3) throw error3;
-              pool.query(noOfGenresAndWhich, (error4, restaurantsByGenre) => {
-                if (error4) throw error4;
-                res.render('homepage', {
-                  title: title,
-                  restaurants: restaurants,
-                  user: "",
-                  ratings: ratings,
-                  topTen: top10restaurants,
-                  NoOfRestaurantGenres: restaurantsByGenre
-                });
-              });
-            });
-          });
-        });
+        res.redirect("../..")
       });
       connection.release();
     });

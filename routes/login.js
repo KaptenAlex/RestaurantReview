@@ -47,6 +47,7 @@ router.get('/', (req, res) => {
     connection.release();
   });
 });
+
 //Login using passport strategy
 router.post("/", (req, res, next) => {
   passport.authenticate('local', {
@@ -58,30 +59,7 @@ router.post("/", (req, res, next) => {
 //user logout
 router.get("/logout", (req, res) => {
   req.logout();
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
-    pool.query(allRestaurants, (error, restaurants) => {
-      if (error) throw error;
-      pool.query(avgRatingForRestaurant, (error2, ratings) => {
-        if (error2) throw error2;
-        pool.query(topTenRatedRestaurants, (error3, top10restaurants) => {
-          if (error3) throw error3;
-          pool.query(noOfGenresAndWhich, (error4, restaurantsByGenre) => {
-            if (error4) throw error4;
-            res.render('homepage', {
-              title: title,
-              restaurants: restaurants,
-              user: req.user,
-              ratings: ratings,
-              topTen: top10restaurants,
-              NoOfRestaurantGenres: restaurantsByGenre
-            });
-          });
-        });
-      });
-    });
-    connection.release();
-  });
+  res.redirect("../")
 });
 
 module.exports = router;
