@@ -52,7 +52,7 @@ router.get('/', (req, res) => {
 router.post("/", (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/error'
+    failureRedirect: '/'
   })(req, res, next);
 });
 
