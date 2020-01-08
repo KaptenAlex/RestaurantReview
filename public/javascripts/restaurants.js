@@ -54,8 +54,13 @@ $(function() {
         let res;
         res = jsonData;
         for (var i = 0; i < res.length; i++) {
+          if (res[i].date == null) {
+            console.log("hej");
+            res[i].date = "No time available"
+          }
           $("#reviews").append("<div class='userReview'><h5 class='modal-title'>User: " + res[i].userName +
-            "</h5><p>Review: " + res[i].review + "</p><p>Rating: " + res[i].rating + " Stars</p><p class='font-italic'>Date: " + res[i].date.split("T", 1) + "</p></div>");
+            "</h5><p>Review: " + res[i].review + "</p><p>Rating: " + res[i].rating +
+            " Stars</p><p class='font-italic'>Date: " + res[i].date + "</p></div>");
         }
         if (res.length < 1) {
           $("#reviews").append("<div id='noReviews'><h5 class='modal-title'>There doesn't seem to be any reviews on this restaurant, but you can be the first!</h5></div>")
