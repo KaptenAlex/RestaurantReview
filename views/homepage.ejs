@@ -192,7 +192,7 @@
     </div>
     <% } %>
     <div class="scaledDown mx-auto">
-      <button id="togglenoOfGenres"type="button" name="button" class="mb-4 btn-success btn-lg btn-block">Number of genres of different restaurants</button>
+      <button id="togglenoOfGenres" type="button" name="button" class="mb-4 btn-success btn-lg btn-block">Number of genres of different restaurants</button>
       <div class="noOfGenres">
         <div class="col mb-4">
           <div class="table-responsive">
@@ -222,7 +222,7 @@
         <% for(var i = 0; i < topTen.length; i++) { %>
         <div class="col mb-4">
           <div class="card">
-            <h5 class="card-header"><%= topTen[i].name %></h5>
+            <h5 class="card-header">#<%= i + 1 %> <%= topTen[i].name %></h5>
             <img src="https://placekitten.com/1500/200" class="card-img-top img-fluid" alt="Restaurant image">
             <div class="card-body">
               <h5 class="card-title">Genre:</h5>
@@ -242,7 +242,7 @@
         </div>
         <% } %>
       </div>
-      <button id="toggleallRestaurants"type="button" name="button" class="mb-4 btn-success btn-lg btn-block">All restaurants</button>
+      <button id="toggleallRestaurants" type="button" name="button" class="mb-4 btn-success btn-lg btn-block">All restaurants</button>
     </div>
     <div class="allRestaurants">
       <% for (var i = 0; i < restaurants.length; i++) { %>
