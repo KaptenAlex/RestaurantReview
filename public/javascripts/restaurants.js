@@ -55,7 +55,6 @@ $(function() {
         res = jsonData;
         for (var i = 0; i < res.length; i++) {
           if (res[i].date == null) {
-            console.log("hej");
             res[i].date = "No time available"
           }
           $("#reviews").append("<div class='userReview'><h5 class='modal-title'>User: " + res[i].userName +
