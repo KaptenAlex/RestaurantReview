@@ -25,7 +25,6 @@ router.post("/createAccount", async (req, res) => {
       }
       pool.query("SELECT userName FROM `users` where userName = ?", [req.body.username], async (error, result) => {
         if (error) throw error;
-        console.log(result.length);
         if (result.length > 0) {
           res.redirect("../..")
         } else {
