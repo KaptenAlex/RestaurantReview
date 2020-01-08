@@ -89,15 +89,10 @@
         <div class="modal-body">
           <!-- Action gets set via jQuery -->
           <form id="editForm" action="" method="post">
-            <!--enctype="multipart/form-data" Need to fix bodyparser or some input parser -->
             <label for="restaurantName">Enter a new name for restaurant</label>
             <input id="restaurantName" class="form-control" type="text" name="restaurantName" value="">
             <label for="restaurantGenre">Enter a new genre for restaurant</label>
             <input id="restaurantGenre" class="form-control" type="text" name="restaurantGenre" value="">
-            <!--
-            <br>
-            <input type="file" name="restaurantImage" value="">
-          -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -126,15 +121,10 @@
         </div>
         <div class="modal-body">
           <form id="createForm" action="/restaurants/" method="post">
-            <!--enctype="multipart/form-data" Need to fix bodyparser or some input parser -->
             <label for="nameForRestaurant">Enter name for new restaurant</label>
             <input id="nameForRestaurant" class="form-control" type="text" name="nameForRestaurant" value="">
             <label for="genreForRestaurant">Enter genre for new restaurant</label>
             <input id="genreForRestaurant" class="form-control" type="text" name="genreForRestaurant" value="">
-            <!--
-            <br>
-            <input type="file" name="restaurantImage" value="">
-          -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
